@@ -1,4 +1,4 @@
-package com.sedentary.findMyPet.base;
+package com.sedentary.findMyPet.base.widget;
 
 import android.annotation.TargetApi;
 import android.content.Context;

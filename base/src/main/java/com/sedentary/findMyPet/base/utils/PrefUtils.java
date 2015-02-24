@@ -3,7 +3,7 @@ package com.sedentary.findMyPet.base.utils;
 import android.content.Context;
 
 import com.sedentary.findMyPet.base.Constants;
-import com.sedentary.findMyPet.base.ObscuredSharedPreferences;
+import com.sedentary.findMyPet.base.widget.ObscuredSharedPreferences;
 
 public class PrefUtils {
 

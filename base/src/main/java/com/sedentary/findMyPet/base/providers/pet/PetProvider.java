@@ -61,12 +61,11 @@ public abstract class PetProvider extends BaseProvider {
     public static class Filters {
         public enum Order { ASC, DESC }
 
-        public enum Sort { POPULARITY, YEAR, DATE, RATING, ALPHABET }
+        public enum Sort { NAME, AGE }
 
         public String keywords = null;
-        public String genre = null;
         public Order order = Order.DESC;
-        public Sort sort = Sort.POPULARITY;
+        public Sort sort = Sort.NAME;
         public Integer page = null;
     }
 }
