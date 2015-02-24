@@ -2,10 +2,8 @@ package com.sedentary.findMyPet.base;
 
 import android.app.Application;
 import android.content.Context;
-import android.content.res.Configuration;
 
 import com.sedentary.findMyPet.base.preferences.Prefs;
-import com.sedentary.findMyPet.base.utils.LocaleUtils;
 import com.sedentary.findMyPet.base.utils.PrefUtils;
 import com.sedentary.findMyPet.base.utils.StorageUtils;
 import com.squareup.okhttp.OkHttpClient;
@@ -18,29 +16,13 @@ import java.io.IOException;
  */
 public class FindMyPetApplication extends Application {
     private static OkHttpClient sHttpClient;
-    private static String sDefSystemLanguage;
 
     private static Application mInstance;
 
     @Override
     public void onCreate() {
         super.onCreate();
-        sDefSystemLanguage = LocaleUtils.getCurrent();
         mInstance = this;
-    }
-
-    @Override
-    public void onConfigurationChanged(Configuration newConfig) {
-        super.onConfigurationChanged(newConfig);
-        sDefSystemLanguage = LocaleUtils.getCurrent();
-    }
-
-    /**
-     *
-     * @return
-     */
-    public static String getSystemLanguage() {
-        return sDefSystemLanguage;
     }
 
     /**
