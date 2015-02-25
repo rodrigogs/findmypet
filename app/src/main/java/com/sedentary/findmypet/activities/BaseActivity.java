@@ -11,6 +11,8 @@ import android.view.MenuItem;
 
 import com.sedentary.findmypet.R;
 
+import butterknife.ButterKnife;
+
 
 public class BaseActivity extends ActionBarActivity {
 
@@ -19,6 +21,7 @@ public class BaseActivity extends ActionBarActivity {
     protected void onCreate(Bundle savedInstanceState, int layoutId) {
         super.onCreate(savedInstanceState);
         setContentView(layoutId);
+        ButterKnife.inject(this);
         mHandler = new Handler(getMainLooper());
     }
 
