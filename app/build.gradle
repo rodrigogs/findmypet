@@ -25,5 +25,7 @@ dependencies {
     compile "com.android.support:recyclerview-v7:${rootProject.ext.appCompatVersion}"
     compile 'de.hdodenhof:circleimageview:1.+'
     compile 'com.jakewharton:butterknife:6.+'
+    compile 'com.larswerkman:HoloColorPicker:1.+'
+
     compile project(':base')
 }

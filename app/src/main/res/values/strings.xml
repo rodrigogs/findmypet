@@ -13,4 +13,23 @@
     <string name="drawer_open">Open navigation drawer</string>
     <string name="drawer_close">Close navigation drawer</string>
 
+    <string name="general">General</string>
+
+    <string name="default_view">Visão padrão</string>
+
+    <string name="cancel">Cancelar</string>
+    <string name="ok">Ok</string>
+
+    <string name="loading_details">Carregando detalhes...</string>
+
+    <string name="color">Cor</string>
+
+    <string name="about_message">About</string>
+    <string name="website">Website</string>
+    <string name="discuss">Discuss</string>
+    <string name="blog">Blog</string>
+    <string name="twitter">Twitter</string>
+    <string name="facebook">Facebook</string>
+    <string name="git">Git</string>
+
 </resources>

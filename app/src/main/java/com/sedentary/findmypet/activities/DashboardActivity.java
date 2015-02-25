@@ -14,7 +14,9 @@ import android.view.MenuItem;
 import com.sedentary.findmypet.R;
 import com.sedentary.findmypet.base.Constants;
 import com.sedentary.findmypet.base.preferences.Prefs;
+import com.sedentary.findmypet.base.utils.IntentUtils;
 import com.sedentary.findmypet.base.utils.PrefUtils;
+import com.sedentary.findmypet.fragments.AboutFragment;
 import com.sedentary.findmypet.fragments.NavigationDrawerFragment;
 import com.sedentary.findmypet.utils.ToolbarUtils;
 import com.sedentary.findmypet.widget.ScrimInsetsFrameLayout;
@@ -82,10 +84,10 @@ public class DashboardActivity extends BaseActivity implements NavigationDrawerF
         String tag = Integer.toString(position);
 
         //		Fragment fragment = mFragmentCache.get(position);
-//        Fragment fragment = fragmentManager.findFragmentByTag(tag);
-//        if (null == fragment) {
-//            fragment = MediaListFragment.newInstance(MediaListFragment.Mode.NORMAL, position); //create new fragment instance
-//        }
-//        fragmentManager.beginTransaction().replace(R.id.container, fragment, tag).commit();
+        Fragment fragment = fragmentManager.findFragmentByTag(tag);
+        if (null == fragment) {
+            fragment = new AboutFragment(); //create new fragment instance
+        }
+        fragmentManager.beginTransaction().replace(R.id.container, fragment, tag).commit();
     }
 }

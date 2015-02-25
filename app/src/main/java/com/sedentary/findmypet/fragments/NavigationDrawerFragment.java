@@ -17,6 +17,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.sedentary.findmypet.R;
+import com.sedentary.findmypet.activities.DashboardActivity;
 import com.sedentary.findmypet.adapters.NavigationAdapter;
 import com.sedentary.findmypet.adapters.decorators.OneShotDividerDecorator;
 import com.sedentary.findmypet.base.preferences.Prefs;
