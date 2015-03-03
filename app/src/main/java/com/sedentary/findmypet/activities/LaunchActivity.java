@@ -11,5 +11,4 @@ public class LaunchActivity extends BaseActivity {
         startActivity(new Intent(this, DashboardActivity.class));
         finish();
     }
-
 }

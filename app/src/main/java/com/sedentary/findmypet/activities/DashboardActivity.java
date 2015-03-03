@@ -26,7 +26,7 @@ import java.net.URLDecoder;
 
 import butterknife.InjectView;
 
-public class DashboardActivity extends BaseActivity implements NavigationDrawerFragment.Callbacks {
+public class DashboardActivity extends BaseActivity implements NavigationDrawerFragment.Callbacks, AboutFragment.OnFragmentInteractionListener {
 
     @InjectView(R.id.toolbar) Toolbar mToolbar;
     @InjectView(R.id.navigation_drawer_container) ScrimInsetsFrameLayout mNavigationDrawerContainer;
@@ -59,7 +59,7 @@ public class DashboardActivity extends BaseActivity implements NavigationDrawerF
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_dashboard, menu);
-        return true;
+        return super.onCreateOptionsMenu(menu);
     }
 
     @Override
@@ -83,7 +83,7 @@ public class DashboardActivity extends BaseActivity implements NavigationDrawerF
         FragmentManager fragmentManager = getSupportFragmentManager();
         String tag = Integer.toString(position);
 
-        //		Fragment fragment = mFragmentCache.get(position);
+//		Fragment fragment = mFragmentCache.get(position);
         Fragment fragment = fragmentManager.findFragmentByTag(tag);
         if (null == fragment) {
             fragment = new AboutFragment(); //create new fragment instance

@@ -10,6 +10,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import com.sedentary.findmypet.R;
+import com.sedentary.findmypet.base.FindMyPetApplication;
 
 import butterknife.ButterKnife;
 
@@ -20,7 +21,7 @@ public class BaseActivity extends ActionBarActivity {
 
     protected void onCreate(Bundle savedInstanceState, int layoutId) {
         super.onCreate(savedInstanceState);
-        setContentView(layoutId);
+        super.setContentView(layoutId);
         ButterKnife.inject(this);
         mHandler = new Handler(getMainLooper());
     }
@@ -58,5 +59,13 @@ public class BaseActivity extends ActionBarActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    /**
+     *
+     * @return
+     */
+    protected FindMyPetApplication getApp() {
+        return (FindMyPetApplication) getApplication();
     }
 }
