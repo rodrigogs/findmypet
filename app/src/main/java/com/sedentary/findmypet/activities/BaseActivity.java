@@ -14,14 +14,13 @@ import com.sedentary.findmypet.base.FindMyPetApplication;
 
 import butterknife.ButterKnife;
 
-
 public class BaseActivity extends ActionBarActivity {
 
     protected Handler mHandler;
 
-    protected void onCreate(Bundle savedInstanceState, int layoutId) {
+    public void onCreate(Bundle savedInstanceState, int layoutId) {
         super.onCreate(savedInstanceState);
-        super.setContentView(layoutId);
+        setContentView(layoutId);
         ButterKnife.inject(this);
         mHandler = new Handler(getMainLooper());
     }
@@ -31,9 +30,16 @@ public class BaseActivity extends ActionBarActivity {
         super.onResume();
     }
 
-    /**
-     *
-     */
+    @Override
+    protected void onPause() {
+        super.onPause();
+    }
+
+    @Override
+    public void setContentView(int layoutResID) {
+        super.setContentView(layoutResID);
+    }
+
     protected void onHomePressed() {
         Intent upIntent = NavUtils.getParentActivityIntent(this);
         if (upIntent != null && NavUtils.shouldUpRecreateTask(this, upIntent)) {
@@ -50,21 +56,24 @@ public class BaseActivity extends ActionBarActivity {
     }
 
     @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        super.onCreateOptionsMenu(menu);
+
+        getMenuInflater().inflate(R.menu.activity_base, menu);
+
+        return true;
+    }
+
+    @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        int id = item.getItemId();
-        switch (id) {
+        switch (item.getItemId()) {
             case android.R.id.home:
                 onHomePressed();
                 return true;
         }
-
         return super.onOptionsItemSelected(item);
     }
 
-    /**
-     *
-     * @return
-     */
     protected FindMyPetApplication getApp() {
         return (FindMyPetApplication) getApplication();
     }

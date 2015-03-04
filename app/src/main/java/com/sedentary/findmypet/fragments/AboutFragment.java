@@ -22,10 +22,6 @@ public class AboutFragment extends Fragment {
     public static final String EXTRA_ARGS = "extra_args";
     public static final String EXTRA_MODE = "extra_mode";
 
-    public enum Mode {
-        NORMAL, SEARCH
-    }
-
 	@InjectView(R.id.logo_imageview) ImageView mLogoImageView;
 	@InjectView(R.id.facebook_button) TextView mFacebookButton;
 	@InjectView(R.id.git_button) TextView mGitButton;

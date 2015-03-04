@@ -1,4 +1,19 @@
-package com.sedentary.findmypet.fragments;
+package com.sedentary.findmypet.fragments;/*
+ * This file is part of Popcorn Time.
+ *
+ * Popcorn Time is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * Popcorn Time is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with Popcorn Time. If not, see <http://www.gnu.org/licenses/>.
+ */
 
 import android.app.Activity;
 import android.content.res.Configuration;
@@ -17,7 +32,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.sedentary.findmypet.R;
-import com.sedentary.findmypet.activities.DashboardActivity;
+import com.sedentary.findmypet.activities.PreferencesActivity;
 import com.sedentary.findmypet.adapters.NavigationAdapter;
 import com.sedentary.findmypet.adapters.decorators.OneShotDividerDecorator;
 import com.sedentary.findmypet.base.preferences.Prefs;
@@ -30,280 +45,268 @@ import java.util.List;
 import butterknife.ButterKnife;
 
 public class NavigationDrawerFragment extends Fragment implements NavigationAdapter.Callback,
-		NavigationAdapter.OnItemClickListener {
+        NavigationAdapter.OnItemClickListener {
 
-	/**
-	 * Remember the position of the selected item.
-	 */
-	private static final String STATE_SELECTED_POSITION = "selected_navigation_drawer_position";
+    /**
+     * Remember the position of the selected item.
+     */
+    private static final String STATE_SELECTED_POSITION = "selected_navigation_drawer_position";
 
 	/* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 	 * views
 	 * - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
 
-	RecyclerView mRecyclerView;
-	private DrawerLayout mDrawerLayout;
-	private ActionBarDrawerToggle mDrawerToggle;
-	private ViewGroup mNavigationDrawerContainer;
+    RecyclerView mRecyclerView;
+    private DrawerLayout mDrawerLayout;
+    private ActionBarDrawerToggle mDrawerToggle;
+    private ViewGroup mNavigationDrawerContainer;
 
 	/* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 	 * variables
 	 * - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
 
-	private int mCurrentSelectedPosition = 0;
-	private boolean mFromSavedInstanceState;
-	private boolean mUserLearnedDrawer;
-	private NavigationAdapter mAdapter;
+    private int mCurrentSelectedPosition = 0;
+    private boolean mFromSavedInstanceState;
+    private boolean mUserLearnedDrawer;
+    private NavigationAdapter mAdapter;
 
-	/**
-	 * A pointer to the current callbacks instance (the Activity).
-	 */
-	private Callbacks mCallbacks;
+    /**
+     * A pointer to the current callbacks instance (the Activity).
+     */
+    private Callbacks mCallbacks;
 
 	/* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 	 * life cycle methods
 	 * - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
 
-	@Override public void onAttach(Activity activity) {
-		super.onAttach(activity);
-		try {
-			mCallbacks = (Callbacks) activity;
-		} catch (ClassCastException e) {
-			throw new ClassCastException("Activity must implement NavigationDrawerCallbacks.");
-		}
-	}
+    @Override public void onAttach(Activity activity) {
+        super.onAttach(activity);
+        try {
+            mCallbacks = (Callbacks) activity;
+        } catch (ClassCastException e) {
+            throw new ClassCastException("Activity must implement NavigationDrawerCallbacks.");
+        }
+    }
 
-	@Override public void onDetach() {
-		super.onDetach();
-		mCallbacks = null;
-	}
+    @Override public void onDetach() {
+        super.onDetach();
+        mCallbacks = null;
+    }
 
-	@Override public void onCreate(Bundle savedInstanceState) {
-		super.onCreate(savedInstanceState);
+    @Override public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
 
-		mUserLearnedDrawer = PrefUtils.get(getActivity(), Prefs.DRAWER_LEARNED, false);
+        mUserLearnedDrawer = PrefUtils.get(getActivity(), Prefs.DRAWER_LEARNED, false);
 
-		if (savedInstanceState != null) {
-			mCurrentSelectedPosition = savedInstanceState.getInt(STATE_SELECTED_POSITION);
-			mFromSavedInstanceState = true;
-		}
-	}
+        if (savedInstanceState != null) {
+            mCurrentSelectedPosition = savedInstanceState.getInt(STATE_SELECTED_POSITION);
+            mFromSavedInstanceState = true;
+        }
+    }
 
-	@Override public void onActivityCreated(Bundle savedInstanceState) {
-		super.onActivityCreated(savedInstanceState);
-		// Indicate that this fragment would like to influence the set of actions in the action bar.
-		setHasOptionsMenu(true);
-	}
+    @Override public void onActivityCreated(Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+        // Indicate that this fragment would like to influence the set of actions in the action bar.
+        setHasOptionsMenu(true);
+    }
 
-	@Override public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-		mRecyclerView = (RecyclerView) inflater.inflate(R.layout.fragment_navigation_drawer, container, false);
-		return mRecyclerView;
-	}
+    @Override public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        mRecyclerView = (RecyclerView) inflater.inflate(R.layout.fragment_navigation_drawer, container, false);
+        return mRecyclerView;
+    }
 
-	@Override public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
-		super.onViewCreated(view, savedInstanceState);
-		ButterKnife.inject(this, view);
+    @Override public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        ButterKnife.inject(this, view);
 
-		//todo: make list items dynamic
-		List<NavDrawerItem> navItems = new ArrayList<>();
-		navItems.add(new NavDrawerItem(true));
-//		navItems.add(new NavDrawerItem(getString(R.string.title_movies), R.drawable.ic_nav_movies));
-//		navItems.add(new NavDrawerItem(getString(R.string.title_shows), R.drawable.ic_nav_tv));
-		navItems.add(new NavDrawerItem(getString(R.string.share_text), R.drawable.ic_launcher, mOnShareClickListener));
-		navItems.add(new NavDrawerItem(getString(R.string.settings), R.drawable.ic_launcher, mOnSettingsClickListener));
-//		navItems.add(new NavDrawerItem(getString(R.string.about), R.drawable.ic_nav_about, mOnAboutClickListener));
+        //todo: make list items dynamic
+        List<NavDrawerItem> navItems = new ArrayList<>();
+        navItems.add(new NavDrawerItem(true));
+        navItems.add(new NavDrawerItem(getString(R.string.settings), R.drawable.ic_launcher, mOnSettingsClickListener));
 
-		mAdapter = new NavigationAdapter(getActivity(), this, navItems);
-		mAdapter.setOnItemClickListener(this);
+        mAdapter = new NavigationAdapter(getActivity(), this, navItems);
+        mAdapter.setOnItemClickListener(this);
 
-		mRecyclerView.addItemDecoration(new OneShotDividerDecorator(getActivity(), 2));
-		mRecyclerView.setHasFixedSize(true);
-		mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-		mRecyclerView.setAdapter(mAdapter);
+        mRecyclerView.addItemDecoration(new OneShotDividerDecorator(getActivity(), 2));
+        mRecyclerView.setHasFixedSize(true);
+        mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+        mRecyclerView.setAdapter(mAdapter);
         mRecyclerView.requestFocus();
-	}
+    }
 
-//	private View.OnClickListener mOnAboutClickListener = new View.OnClickListener() {
-//		@Override public void onClick(View v) {
-//			AboutActivity.startActivity(getActivity());
-//		}
-//	};
+    private View.OnClickListener mOnSettingsClickListener = new View.OnClickListener() {
+        @Override public void onClick(View v) {
+            PreferencesActivity.startActivity(getActivity());
+            mDrawerLayout.closeDrawer(mNavigationDrawerContainer);
+        }
+    };
 
-	private View.OnClickListener mOnSettingsClickListener = new View.OnClickListener() {
-		@Override public void onClick(View v) {
-//			PreferencesActivity.startActivity(getActivity()); TODO
-			mDrawerLayout.closeDrawer(mNavigationDrawerContainer);
-		}
-	};
+    private View.OnClickListener mOnShareClickListener = new View.OnClickListener() {
+        @Override public void onClick(View v) {
+            String text = getString(R.string.share_text);
 
-	private View.OnClickListener mOnShareClickListener = new View.OnClickListener() {
-		@Override public void onClick(View v) {
-			String text = getString(R.string.share_text);
+            startActivity(IntentUtils.getSendIntent(getActivity(), getString(R.string.share_dialog_title), String.format("%s %s", text,
+                    "http://google.com")));
+        }
+    };
 
-			startActivity(IntentUtils.getSendIntent(getActivity(), getString(R.string.share_dialog_title), String.format("%s %s", text,
-                    "sharing url")));
-		}
-	};
+    @Override public void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putInt(STATE_SELECTED_POSITION, mCurrentSelectedPosition);
+    }
 
-	@Override public void onSaveInstanceState(Bundle outState) {
-		super.onSaveInstanceState(outState);
-		outState.putInt(STATE_SELECTED_POSITION, mCurrentSelectedPosition);
-	}
+    @Override public void onConfigurationChanged(Configuration newConfig) {
+        super.onConfigurationChanged(newConfig);
+        // Forward the new configuration the drawer toggle component.
+        mDrawerToggle.onConfigurationChanged(newConfig);
+    }
 
-	@Override public void onConfigurationChanged(Configuration newConfig) {
-		super.onConfigurationChanged(newConfig);
-		// Forward the new configuration the drawer toggle component.
-		mDrawerToggle.onConfigurationChanged(newConfig);
-	}
-
-	public int getSelectedPosition() {
-		return mCurrentSelectedPosition;
-	}
+    public int getSelectedPosition() {
+        return mCurrentSelectedPosition;
+    }
 
 	/* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 	 * initialise 
 	 * - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
 
-	/**
-	 * Called by the implementing activity to initialise the navigation drawer
-	 *
-	 * @param navigationContainer
-	 * @param drawerLayout
-	 */
-	public void initialise(ViewGroup navigationContainer, DrawerLayout drawerLayout) {
-		mNavigationDrawerContainer = navigationContainer;
-		mDrawerLayout = drawerLayout;
+    /**
+     * Called by the implementing activity to initialise the navigation drawer
+     *
+     * @param navigationContainer
+     * @param drawerLayout
+     */
+    public void initialise(ViewGroup navigationContainer, DrawerLayout drawerLayout) {
+        mNavigationDrawerContainer = navigationContainer;
+        mDrawerLayout = drawerLayout;
 
-		//ensure the mToolbar displays the home icon (will be overriden with the burger icon)
-		ActionBar actionBar = getActionBar();
-		actionBar.setDisplayHomeAsUpEnabled(true);
-		actionBar.setHomeButtonEnabled(true);
+        //ensure the mToolbar displays the home icon (will be overriden with the burger icon)
+        ActionBar actionBar = getActionBar();
+        actionBar.setDisplayHomeAsUpEnabled(true);
+        actionBar.setHomeButtonEnabled(true);
 
-		// ActionBarDrawerToggle ties together the the proper interactions
-		// between the navigation drawer and the action bar app icon.
-		mDrawerToggle = new ActionBarDrawerToggle(getActivity(), mDrawerLayout, R.string.drawer_open, R.string.drawer_close) {
-			@Override public void onDrawerClosed(View drawerView) {
-				super.onDrawerClosed(drawerView);
+        // ActionBarDrawerToggle ties together the the proper interactions
+        // between the navigation drawer and the action bar app icon.
+        mDrawerToggle = new ActionBarDrawerToggle(getActivity(), mDrawerLayout, R.string.drawer_open, R.string.drawer_close) {
+            @Override public void onDrawerClosed(View drawerView) {
+                super.onDrawerClosed(drawerView);
 				/* do nothing */
-			}
+            }
 
-			@Override public void onDrawerOpened(View drawerView) {
-				super.onDrawerOpened(drawerView);
-				if (!isAdded()) return;
+            @Override public void onDrawerOpened(View drawerView) {
+                super.onDrawerOpened(drawerView);
+                if (!isAdded()) return;
 
-				if (!mUserLearnedDrawer) {
-					// The user manually opened the drawer; store this flag to prevent auto-showing
-					// the navigation drawer automatically in the future.
-					mUserLearnedDrawer = true;
-					PrefUtils.save(getActivity(), Prefs.DRAWER_LEARNED, true);
-				}
-			}
-		};
+                if (!mUserLearnedDrawer) {
+                    // The user manually opened the drawer; store this flag to prevent auto-showing
+                    // the navigation drawer automatically in the future.
+                    mUserLearnedDrawer = true;
+                    PrefUtils.save(getActivity(), Prefs.DRAWER_LEARNED, true);
+                }
+            }
+        };
 
-		// If the user hasn't 'learned' about the drawer, open it to introduce them to the drawer,
-		// per the navigation drawer design guidelines.
-		if (!mUserLearnedDrawer && !mFromSavedInstanceState) {
-			mDrawerLayout.openDrawer(mNavigationDrawerContainer);
-		}
+        // If the user hasn't 'learned' about the drawer, open it to introduce them to the drawer,
+        // per the navigation drawer design guidelines.
+        if (!mUserLearnedDrawer && !mFromSavedInstanceState) {
+            mDrawerLayout.openDrawer(mNavigationDrawerContainer);
+        }
 
-		// Defer code dependent on restoration of previous instance state.
-		mDrawerLayout.post(new Runnable() {
-			@Override public void run() {
-				mDrawerToggle.syncState();
-			}
-		});
+        // Defer code dependent on restoration of previous instance state.
+        mDrawerLayout.post(new Runnable() {
+            @Override public void run() {
+                mDrawerToggle.syncState();
+            }
+        });
 
-		mDrawerLayout.setDrawerListener(mDrawerToggle);
+        mDrawerLayout.setDrawerListener(mDrawerToggle);
 
-	}
+    }
 
-	private ActionBar getActionBar() {
-		return ((ActionBarActivity) getActivity()).getSupportActionBar();
-	}
+    private ActionBar getActionBar() {
+        return ((ActionBarActivity) getActivity()).getSupportActionBar();
+    }
 
-	@Override public boolean onOptionsItemSelected(MenuItem item) {
-		//consume the home button press
-		if (mDrawerToggle.onOptionsItemSelected(item)) {
-			return true;
-		}
+    @Override public boolean onOptionsItemSelected(MenuItem item) {
+        //consume the home button press
+        if (mDrawerToggle.onOptionsItemSelected(item)) {
+            return true;
+        }
 
-		return super.onOptionsItemSelected(item);
-	}
+        return super.onOptionsItemSelected(item);
+    }
 
-	@Override public void onItemClick(View v, NavDrawerItem item, int position) {
-		if (null != item.getClickListener()) {
-			item.getClickListener().onClick(v);
-			return;
-		}
+    @Override public void onItemClick(View v, NavDrawerItem item, int position) {
+        if (null != item.getClickListener()) {
+            item.getClickListener().onClick(v);
+            return;
+        }
 
-		selectItem(mAdapter.getCorrectPosition(position));
-	}
+        selectItem(mAdapter.getCorrectPosition(position));
+    }
 
-	/**
-	 * Callbacks interface that all activities using this fragment must implement.
-	 */
-	public static interface Callbacks {
-		/**
-		 * Called when an item in the navigation drawer is selected.
-		 */
-		void onNavigationDrawerItemSelected(int position);
-	}
+    /**
+     * Callbacks interface that all activities using this fragment must implement.
+     */
+    public static interface Callbacks {
+        /**
+         * Called when an item in the navigation drawer is selected.
+         */
+        void onNavigationDrawerItemSelected(int position);
+    }
 
-	/**
-	 * Called when a list item is selected.
-	 *
-	 * Updates the state of the list, closes the drawer, and fowards the event to the parent activity to handle.
-	 *
-	 * @param position position of the item in the list
-	 */
-	public void selectItem(int position) {
-		mCurrentSelectedPosition = position;
+    /**
+     * Called when a list item is selected.
+     *
+     * Updates the state of the list, closes the drawer, and fowards the event to the parent activity to handle.
+     *
+     * @param position position of the item in the list
+     */
+    public void selectItem(int position) {
+        mCurrentSelectedPosition = position;
 
-		if (mDrawerLayout != null) {
-			mDrawerLayout.closeDrawer(mNavigationDrawerContainer);
-		}
-		if (mCallbacks != null) {
-			mCallbacks.onNavigationDrawerItemSelected(position);
-		}
+        if (mDrawerLayout != null) {
+            mDrawerLayout.closeDrawer(mNavigationDrawerContainer);
+        }
+        if (mCallbacks != null) {
+            mCallbacks.onNavigationDrawerItemSelected(position);
+        }
 
-		mAdapter.notifyDataSetChanged();
-	}
+        mAdapter.notifyDataSetChanged();
+    }
 
-	/**
-	 * Describes an item to be displayed in the navigation list
-	 */
-	public static class NavDrawerItem {
-		private View.OnClickListener clickListener;
-		public boolean isHeader = false;
-		private String title;
-		private int icon;
+    /**
+     * Describes an item to be displayed in the navigation list
+     */
+    public static class NavDrawerItem {
+        private View.OnClickListener clickListener;
+        public boolean isHeader = false;
+        private String title;
+        private int icon;
 
-		public NavDrawerItem(String title, int icon) {
-			this(title, icon, null);
-		}
+        public NavDrawerItem(String title, int icon) {
+            this(title, icon, null);
+        }
 
-		public NavDrawerItem(String title, int icon, View.OnClickListener listener) {
-			this.title = title;
-			this.icon = icon;
-			this.clickListener = listener;
-		}
+        public NavDrawerItem(String title, int icon, View.OnClickListener listener) {
+            this.title = title;
+            this.icon = icon;
+            this.clickListener = listener;
+        }
 
-		public NavDrawerItem(boolean isHeader) {
-			this.isHeader = true;
-		}
+        public NavDrawerItem(boolean isHeader) {
+            this.isHeader = true;
+        }
 
-		public String getTitle() {
-			return title;
-		}
+        public String getTitle() {
+            return title;
+        }
 
-		public int getIcon() {
-			return icon;
-		}
+        public int getIcon() {
+            return icon;
+        }
 
-		public View.OnClickListener getClickListener() {
-			return clickListener;
-		}
-	}
-
-
+        public View.OnClickListener getClickListener() {
+            return clickListener;
+        }
+    }
 }
