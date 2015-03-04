@@ -32,4 +32,15 @@
     <string name="facebook">Facebook</string>
     <string name="git">Git</string>
 
+    <string name="loading_data">Loading data...</string>
+    <string name="no_data_found">No data found!</string>
+
+    <string name="searching">Searching...</string>
+    <string name="no_search_results">No search results!</string>
+
+    <string name="pets_error">Error</string>
+    <string name="unknown_error">Unknown error</string>
+    <string name="about">About</string>
+    <string name="title_activity_about">AboutActivity</string>
+
 </resources>

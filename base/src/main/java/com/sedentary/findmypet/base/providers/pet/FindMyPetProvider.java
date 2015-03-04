@@ -16,7 +16,7 @@ import java.util.ArrayList;
 /**
  * Created by rodrigo on 24/02/15.
  */
-public abstract class FindMyPetProvider extends PetProvider {
+public class FindMyPetProvider extends PetProvider {
 
     protected String mApiUrl = "http://api.findmypet.io/";
 
@@ -72,6 +72,11 @@ public abstract class FindMyPetProvider extends PetProvider {
         requestBuilder.tag(PET_CALL);
 
         return fetchList(currentList, requestBuilder, callback);
+    }
+
+    @Override
+    public Call getDetail(String petId, Callback callback) {
+        return null;
     }
 
     /**

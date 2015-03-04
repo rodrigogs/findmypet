@@ -32,6 +32,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.sedentary.findmypet.R;
+import com.sedentary.findmypet.activities.AboutActivity;
 import com.sedentary.findmypet.activities.PreferencesActivity;
 import com.sedentary.findmypet.adapters.NavigationAdapter;
 import com.sedentary.findmypet.adapters.decorators.OneShotDividerDecorator;
@@ -122,7 +123,8 @@ public class NavigationDrawerFragment extends Fragment implements NavigationAdap
         //todo: make list items dynamic
         List<NavDrawerItem> navItems = new ArrayList<>();
         navItems.add(new NavDrawerItem(true));
-        navItems.add(new NavDrawerItem(getString(R.string.settings), R.drawable.ic_launcher, mOnSettingsClickListener));
+        navItems.add(new NavDrawerItem(getString(R.string.settings), R.mipmap.ic_nav_settings, mOnSettingsClickListener));
+        navItems.add(new NavDrawerItem(getString(R.string.about), R.mipmap.ic_nav_about, mOnAboutClickListener));
 
         mAdapter = new NavigationAdapter(getActivity(), this, navItems);
         mAdapter.setOnItemClickListener(this);
@@ -138,6 +140,12 @@ public class NavigationDrawerFragment extends Fragment implements NavigationAdap
         @Override public void onClick(View v) {
             PreferencesActivity.startActivity(getActivity());
             mDrawerLayout.closeDrawer(mNavigationDrawerContainer);
+        }
+    };
+
+    private View.OnClickListener mOnAboutClickListener = new View.OnClickListener() {
+        @Override public void onClick(View v) {
+            AboutActivity.startActivity(getActivity());
         }
     };
 

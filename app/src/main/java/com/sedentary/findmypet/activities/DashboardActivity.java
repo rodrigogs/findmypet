@@ -18,6 +18,7 @@ import com.sedentary.findmypet.base.utils.IntentUtils;
 import com.sedentary.findmypet.base.utils.PrefUtils;
 import com.sedentary.findmypet.fragments.AboutFragment;
 import com.sedentary.findmypet.fragments.NavigationDrawerFragment;
+import com.sedentary.findmypet.fragments.PetListFragment;
 import com.sedentary.findmypet.utils.ToolbarUtils;
 import com.sedentary.findmypet.widget.ScrimInsetsFrameLayout;
 
@@ -85,7 +86,7 @@ public class DashboardActivity extends BaseActivity implements NavigationDrawerF
 //		Fragment fragment = mFragmentCache.get(position);
         Fragment fragment = fragmentManager.findFragmentByTag(tag);
         if (null == fragment) {
-            fragment = new AboutFragment(); //create new fragment instance
+            fragment = PetListFragment.newInstance(PetListFragment.Mode.NORMAL, position); //create new fragment instance
         }
         fragmentManager.beginTransaction().replace(R.id.container, fragment, tag).commit();
     }

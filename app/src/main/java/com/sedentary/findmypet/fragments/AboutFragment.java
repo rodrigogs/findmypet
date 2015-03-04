@@ -19,9 +19,6 @@ import butterknife.OnClick;
 
 public class AboutFragment extends Fragment {
 
-    public static final String EXTRA_ARGS = "extra_args";
-    public static final String EXTRA_MODE = "extra_mode";
-
 	@InjectView(R.id.logo_imageview) ImageView mLogoImageView;
 	@InjectView(R.id.facebook_button) TextView mFacebookButton;
 	@InjectView(R.id.git_button) TextView mGitButton;
@@ -80,7 +77,7 @@ public class AboutFragment extends Fragment {
     }
 
     @OnClick(R.id.logo_imageview) void onLogoClick() {
-		startActivity(IntentUtils.getBrowserIntent(getActivity(), "http://www.example.com"));
+		startActivity(IntentUtils.getBrowserIntent(getActivity(), "http://www.google.com"));
 	}
 
 	@OnClick(R.id.facebook_button) void onFacebookClick() {
